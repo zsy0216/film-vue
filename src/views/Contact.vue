@@ -9,8 +9,5 @@
 
 export default {
   name: 'contact',
-  components: {
-   
-  }
 }
 </script>
