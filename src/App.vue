@@ -16,6 +16,18 @@
             <li>
               <router-link to="/contact">{{ nav.contact }}</router-link>
             </li>
+            <li>
+              <a href="https://cn.vuejs.org/v2/guide/instance.html" target="_blank">Vue</a>
+            </li>
+            <li>
+              <a href="https://movie.douban.com/" target="_blank">DouBan</a>
+            </li>
+            <li>
+               <a href="https://v3.bootcss.com/components/" target="_blank">Bootstrap</a>
+            </li>
+            <li>
+               <a href="http://www.jiaoran.net/" target="_blank">皎然影音乐</a>
+            </li>
           </ul>
           <div id="search">
             <div class="container">
@@ -65,7 +77,7 @@ export default {
   color: #2c3e50;
 }
 body {
-  padding-top: 100px;
+  padding-top: 51px;
 }
 
 #search {
