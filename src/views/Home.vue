@@ -11,13 +11,13 @@
         </div>
       </div>
 
-      <article class="media excerpt">
+      <article class="media excerpt" v-for="movie in film" v-bind:key="movie.id">
         <div class="media-left">
-          <a href="/movie/1609" class="focus">
+          <a :href="movie.url" class="focus">
             <img
               class="media-object thumb"
-              src="http://cdn.jiaoran.net/track/8771400-b80045189cf72f50f040a44a92ebc90d.jpg"
-              alt="鬼娃回魂2"
+              :src="movie.img"
+              :alt="movie.name"
             />
           </a>
         </div>
@@ -29,7 +29,7 @@
               <i></i>
             </a>
             <h2>
-              <a target="_blank" href="/movie/1609" title="鬼娃回魂2">鬼娃回魂2 Child's Play 2</a>
+              <a target="_blank" :href="movie.url" :title="movie.name ">{{ movie.name }}</a>
             </h2>
           </header>
 
@@ -37,7 +37,7 @@
             <time>
               <i class="fa fa-clock-o"></i>2019-09-25
             </time>
-            <a class="pc" href="/movie/1609">
+            <a class="pc" :href="movie.url">
               <i class="fa fa-eye" aria-hidden="true"></i>查看(26)
             </a>
           </p>
@@ -59,10 +59,44 @@ export default {
   name: "home",
   data() {
     return {
-      film: [],
-      api: [{}]
+      film: [
+        // {
+        //   img: "",
+        //   name: "",
+        //   id: "",
+        //   url: ""
+        // }
+      ],
+      api: {
+        hot:
+          "/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=5&page_start=0",
+        movie: "https://movie.douban.com/subject/"
+      }
     };
-  }
+  },
+  created() {
+    this.axios
+      .get(this.api.hot)
+      .then(response => {
+        console.log(response.data.subjects);
+        const movies = response.data.subjects;
+        console.log(movies[0].cover)
+        // console.log(movies.length)
+        for (let i = 0; i<movies.length; i++){
+          this.film.push({
+            img:movies[i].cover,
+            name:movies[i].title,
+            id:movies[i].id,
+            url:movies[i].url,
+          })
+          console.log(this.film[0].img)
+        }
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  },
+  methods: {}
 };
 </script>
 
@@ -74,7 +108,7 @@ article {
   display: flex;
   flex-direction: column;
 }
-.media-right header { 
+.media-right header {
   text-align: left;
 }
 .media-right p {
