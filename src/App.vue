@@ -2,13 +2,31 @@
   <div id="app">
     <nav class="navbar navbar-inverse navbar-fixed-top">
       <div class="container">
+        <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
+          <button
+            type="button"
+            class="navbar-toggle collapsed"
+            data-toggle="collapse"
+            data-target="#bs-example-navbar-collapse-1"
+            aria-expanded="false"
+          >
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
           <router-link class="navbar-brand" to="/">{{ nav.project_name }}</router-link>
         </div>
-        <div id="navbar" class="collapse navbar-collapse">
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
           <ul class="nav navbar-nav">
             <li>
-              <router-link to="/">{{ nav.home }}</router-link>
+              <router-link to="/">
+                {{ nav.home }}
+                <span class="sr-only">(current)</span>
+              </router-link>
             </li>
             <li>
               <router-link to="/about">{{ nav.about }}</router-link>
@@ -16,40 +34,62 @@
             <li>
               <router-link to="/contact">{{ nav.contact }}</router-link>
             </li>
-            <li>
-              <a href="https://cn.vuejs.org/v2/guide/instance.html" target="_blank">Vue</a>
-            </li>
-            <li>
-              <a href="https://movie.douban.com/" target="_blank">DouBan</a>
-            </li>
-            <li>
-               <a href="https://v3.bootcss.com/components/" target="_blank">Bootstrap</a>
-            </li>
-            <li>
-               <a href="http://www.jiaoran.net/" target="_blank">皎然影音乐</a>
-            </li>
-            <li>
-               <a href="https://www.json.cn/#" target="_blank">JSON解析</a>
+            <li class="dropdown">
+              <a
+                href="#"
+                class="dropdown-toggle"
+                data-toggle="dropdown"
+                role="button"
+                aria-haspopup="true"
+                aria-expanded="false"
+              >
+                Others
+                <span class="caret"></span>
+              </a>
+              <ul class="dropdown-menu">
+                <li>
+                  <a href="https://cn.vuejs.org/v2/guide/instance.html" target="_blank">Vue</a>
+                </li>
+                <li>
+                  <a href="https://v3.bootcss.com/components/" target="_blank">Bootstrap</a>
+                </li>
+                 <li>
+                  <a href="https://github.com/zsy0216/film-vue" target="_blank">Github</a>
+                </li>
+               
+                
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a href="http://www.jiaoran.net/" target="_blank">皎然影音乐</a>
+                </li>
+                <li>
+                  <a href="https://movie.douban.com/" target="_blank">DouBan</a>
+                </li>
+                <li role="separator" class="divider"></li>
+                <li>
+                  <a href="https://www.json.cn/#" target="_blank">JSON解析</a>
+                </li>
+              </ul>
             </li>
           </ul>
-          <div id="search">
-            <div class="container">
-              <div class="form-group">
-                <div class="col-lg-3" />
-                <div class="col-lg-4">
-                  <input class="form-control" type="text" placeholder="搜索电影" />
-                </div>
-                <!-- <div class="col-lg-2"> -->
-                  <router-link to="/detial" class="search-btn">{{nav.search}}</router-link>
-                <!-- </div> -->
-              </div>
+          <form class="navbar-form navbar-left">
+            <div class="form-group">
+              <input type="text" class="form-control" placeholder="Search" />
             </div>
-          </div>
+           <router-link to="/detial" class="btn btn-default">{{nav.search}}</router-link>
+          </form>
+          <ul class="nav navbar-nav navbar-right">
+            <li>
+              <a href="#">Login</a>
+            </li>
+          </ul>
         </div>
-        <!--/.nav-collapse -->
+        <!-- /.navbar-collapse -->
       </div>
-      <!-- /.container -->
+      <!-- /.container-fluid -->
     </nav>
+
+  
     <router-view />
   </div>
 </template>
@@ -87,6 +127,12 @@ body {
   margin-top: 10px;
   a {
     text-decoration: none;
+  }
+  #container {
+    // display: flex;
+    .col-lg-3 {
+      display: flex;
+    }
   }
 }
 

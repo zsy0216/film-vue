@@ -5,7 +5,9 @@ import store from './store'
 import axios from 'axios'
 import VueAxios from 'vue-axios'
 
+import 'bootstrap'
 import 'bootstrap/dist/css/bootstrap.css'
+
 // var express = require('express')
 
 Vue.use(VueAxios, axios)
