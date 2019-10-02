@@ -14,11 +14,7 @@
       <article class="media excerpt" v-for="movie in film" v-bind:key="movie.id">
         <div class="media-left">
           <a :href="movie.url" class="focus">
-            <img
-              class="media-object thumb"
-              :src="movie.img"
-              :alt="movie.name"
-            />
+            <img class="media-object thumb" :src="movie.img" :alt="movie.name" />
           </a>
         </div>
         <!-- media-left end. -->
@@ -80,16 +76,16 @@ export default {
       .then(response => {
         console.log(response.data.subjects);
         const movies = response.data.subjects;
-        console.log(movies[0].cover)
+        console.log(movies[0].cover);
         // console.log(movies.length)
-        for (let i = 0; i<movies.length; i++){
+        for (let i = 0; i < movies.length; i++) {
           this.film.push({
-            img:movies[i].cover,
-            name:movies[i].title,
-            id:movies[i].id,
-            url:movies[i].url,
-          })
-          console.log(this.film[0].img)
+            img: movies[i].cover,
+            name: movies[i].title,
+            id: movies[i].id,
+            url: movies[i].url
+          });
+          console.log(this.film[0].img);
         }
       })
       .catch(error => {

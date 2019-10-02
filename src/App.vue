@@ -8,7 +8,7 @@
             type="button"
             class="navbar-toggle collapsed"
             data-toggle="collapse"
-            data-target="#bs-example-navbar-collapse-1"
+            data-target="#nav-toggle"
             aria-expanded="false"
           >
             <span class="sr-only">Toggle navigation</span>
@@ -20,7 +20,7 @@
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
-        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+        <div class="collapse navbar-collapse" id="nav-toggle">
           <ul class="nav navbar-nav">
             <li>
               <router-link to="/">
@@ -53,11 +53,10 @@
                 <li>
                   <a href="https://v3.bootcss.com/components/" target="_blank">Bootstrap</a>
                 </li>
-                 <li>
+                <li>
                   <a href="https://github.com/zsy0216/film-vue" target="_blank">Github</a>
                 </li>
-               
-                
+
                 <li role="separator" class="divider"></li>
                 <li>
                   <a href="http://www.jiaoran.net/" target="_blank">皎然影音乐</a>
@@ -73,10 +72,12 @@
             </li>
           </ul>
           <form class="navbar-form navbar-left">
-            <div class="form-group">
+            <div class="input-group">
               <input type="text" class="form-control" placeholder="Search" />
+              <span class="input-group-btn">
+                <router-link to="/detial" class="btn btn-default">{{ nav.search }}</router-link>
+              </span>
             </div>
-           <router-link to="/detial" class="btn btn-default">{{nav.search}}</router-link>
           </form>
           <ul class="nav navbar-nav navbar-right">
             <li>
@@ -89,7 +90,6 @@
       <!-- /.container-fluid -->
     </nav>
 
-  
     <router-view />
   </div>
 </template>
@@ -121,28 +121,5 @@ export default {
 }
 body {
   padding-top: 51px;
-}
-
-#search {
-  margin-top: 10px;
-  a {
-    text-decoration: none;
-  }
-  #container {
-    // display: flex;
-    .col-lg-3 {
-      display: flex;
-    }
-  }
-}
-
-.search-btn {
-  height: 34px;
-  float: left;
-  padding: 6px 12px;
-  font-size: 14px;
-  border-radius: 4px;
-  background-color: #fff;
-  border: 1px solid #ccc;
 }
 </style>
