@@ -38,9 +38,7 @@
             </a>
           </p>
 
-          <p
-            class="note"
-          >公仔杀人事件经媒体报道后，引发制作“楚其”的玩具公司对市场前景的担忧，玩具公司将楚其的残骸收回并加以修复，试图向股东证明杀人玩具不过是谣言一场，然而在修复完成时，楚其随即复活，它引发混乱，并最终逃脱。另一方面，安迪（艾力克斯·文森特 Alex Vincent 饰）和母亲分别接受心理治疗，一对好心夫妇暂时照顾安迪。根据灵魂转移的符咒要求，楚其如果要避免与公仔一...</p>
+          <p class="note">{{ movie.summary }}</p>
         </div>
         <!-- media-right end. -->
       </article>
@@ -65,34 +63,50 @@ export default {
       ],
       api: {
         hot:
-          "/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=5&page_start=0",
-        movie: "https://movie.douban.com/subject/"
+          "/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=5&page_start=0"
+        // movie: "https://movie.douban.com/subject/"
       }
     };
   },
   created() {
+    console.log(this.film);
     this.axios
       .get(this.api.hot)
       .then(response => {
-        console.log(response.data.subjects);
         const movies = response.data.subjects;
-        console.log(movies[0].cover);
-        // console.log(movies.length)
         for (let i = 0; i < movies.length; i++) {
           this.film.push({
             img: movies[i].cover,
             name: movies[i].title,
             id: movies[i].id,
-            url: movies[i].url
+            url: movies[i].url,
+            summary: ""
           });
-          console.log(this.film[0].img);
+        }
+      })
+      .then(() => {
+        for (let i = 0; i < this.film.length; i++) {
+          //获取单个电影的信息
+          this.axios
+            .get(
+              "/v2/movie/subject/" +
+                this.film[i].id +
+                "?apikey=0b2bdeda43b5688921839c8ecb20399b"
+            )
+            .then(response => {
+              const data = response.data;
+              this.film[i].summary = data.summary;
+              // console.log(this.film[i].summary+"---"+this.film[i].id);
+            });
         }
       })
       .catch(error => {
         console.log(error);
       });
   },
-  methods: {}
+  methods: {
+    getSummary() {}
+  }
 };
 </script>
 

@@ -23,8 +23,16 @@ module.exports = {
                 pathRewrite: {
                     '^/j/search_subjects': '/j/search_subjects'
                 }
+            },
+            '/v2/movie/subject': {
+                target: 'https://api.douban.com',
+                changeOrigin: true,
+                // pathRewrite: {
+                //     '^/v2/movie/subject': '/v2/movie/subject'
+                // }
             }
-        }
+        },
+
 
     }
 }
