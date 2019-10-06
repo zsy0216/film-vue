@@ -3,8 +3,15 @@
     <div class="row">
       <!-- 左侧内容 start-->
       <div class="col-md-9 con-left">
-        <div class="panel panel-info">
-          <div class="panel-heading">豆瓣新片榜</div>
+        <div class="panel panel-info" v-if="!this.cate">
+          <div class="panel-heading">
+            豆瓣新片榜
+          </div>
+        </div>
+        <div class="panel panel-success" v-else>
+           <div class="panel-heading">
+            <span v-if="this.cate">豆瓣分类榜---{{ this.cate }}</span>
+          </div>
         </div>
         <article class="media except" v-for="movie in film" :key="movie.id">
           <!-- 内容 -->
@@ -56,7 +63,10 @@
         <div class="panel panel-success">
           <div class="panel-heading">分类排行榜</div>
           <div class="list-group" v-for="cate in category" :key="cate.type">
-            <a href="#" class="list-group-item list-group-item-danger">{{ cate.name }}</a>
+            <button
+              class="list-group-item list-group-item-danger"
+              @click="getCateFilmList(cate.type)"
+            >{{ cate.name }}</button>
           </div>
         </div>
       </div>
@@ -73,6 +83,8 @@ export default {
   name: "home",
   data() {
     return {
+      movies: [],
+      cate: "", //分类唯一标识符
       film: [
         // {
         //   img: "",
@@ -89,8 +101,10 @@ export default {
         //https://movie.douban.com
         newFilm:
           "/j/new_search_subjects?sort=U&range=0,10&tags=%E7%94%B5%E5%BD%B1&start=0&year_range=2019,2019",
-        cateFilm:
-          "/j/chart/top_list?type=11&interval_id=100%3A90&action=&start=0&limit=20"
+        cateFilm: {
+          begin: "/j/chart/top_list?type=", //+type
+          end: "&interval_id=100%3A90&action=&start=0&limit=20"
+        }
       },
       category: [
         {
@@ -212,8 +226,41 @@ export default {
       ]
     };
   },
+  methods: {
+    getCateFilmList(type) {
+      this.cate = this.category.find(item => item.type === type).name;
+      // console.log(this.cate);
+      const url = this.api.cateFilm.begin + type + this.api.cateFilm.end;
+      // console.log(url);
+      this.axios
+        .get(url)
+        .then(response => {
+          // this.movies= response.data;
+          const movies = response.data;
+          this.film.length = 0;
+          for (let i = 0; i < movies.length; i++) {
+            this.film.push({
+              img: movies[i].cover_url,
+              name: movies[i].title,
+              id: movies[i].id,
+              url: movies[i].url,
+              rate: movies[i].rating[0],
+              directors: movies[i].directors,
+              casts: movies[i].actors, //演员
+              release_date: movies[i].release_date,
+              type: movies[i].types,
+              regions: movies[i].regions[0]
+            });
+          }
+          // console.log(this.film);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    }
+  },
   created() {
-    console.log(this.category.length);
+    // console.log(this.category.length);
     this.axios
       .get(this.api.newFilm)
       .then(response => {
@@ -252,7 +299,7 @@ export default {
       border: 1px solid #eaeaea;
       overflow: hidden;
       background-color: #fff;
-      margin-bottom: -1px;
+      // margin-bottom: -1px;
 
       &:hover {
         background-color: #f9f9f9;
@@ -287,6 +334,9 @@ export default {
       }
       .list-group {
         line-height: 10px;
+        button {
+          text-align: center;
+        }
       }
     }
   }

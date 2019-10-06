@@ -78,7 +78,7 @@
                 <router-link to="/detial" class="btn btn-default">{{ nav.search }}</router-link>
               </span>
             </div>
-          </form> -->
+          </form>-->
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#">Login</a>
@@ -102,7 +102,7 @@ export default {
         project_name: "爱看不看",
         home: "首页",
         about: "关于",
-        contact: "联系我",
+        contact: "联系我"
         // search: "搜一下"
       }
     };
@@ -121,6 +121,5 @@ export default {
 }
 body {
   padding-top: 50px;
-  
 }
 </style>
