@@ -30,7 +30,12 @@ module.exports = {
                 // pathRewrite: {
                 //     '^/v2/movie/subject': '/v2/movie/subject'
                 // }
+            },
+            '/j/new_search_subjects':{
+                target:'https://movie.douban.com',
+                changeOrigin:true
             }
+
         },
 
 

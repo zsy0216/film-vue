@@ -1,52 +1,72 @@
 <template>
-  <div class="home">
-    <h2>这里是首页</h2>
-
-    <div class="container homepage">
-      <div class="row">
-        <div class="panel panel-warning">
-          <div class="panel-heading">
-            <h3 class="panel-title">最新发布</h3>
+  <div class="home container">
+    <div class="row">
+      <!-- 左侧内容 start-->
+      <div class="col-md-9 con-left">
+        <div class="panel panel-info">
+          <div class="panel-heading">豆瓣新片榜</div>
+        </div>
+        <article class="media except" v-for="movie in film" :key="movie.id">
+          <!-- 内容 -->
+          <div class="media-left">
+            <a :href="movie.url" target="_blank">
+              <img class="media-object" :src="movie.img" :alt="movie.name" />
+            </a>
+          </div>
+          <div class="media-body">
+            <h3 class="media-heading">
+              <a class="text-muted" :href="movie.url" target="_blank">{{ movie.name }}</a>
+            </h3>
+            <p>
+              <span class="text-muted">导演：</span>
+              {{ movie.directors }}
+            </p>
+            <p>
+              <span class="text-muted">主演：</span>
+              {{ movie.casts }}
+            </p>
+            <p>
+              <span class="text-muted">评分：</span>
+              {{ movie.rate }}
+            </p>
+          </div>
+        </article>
+        <!-- 分页 -->
+        <nav aria-label="Page navigation">
+          <ul class="pagination">
+            <li>
+              <a href="#" aria-label="Previous">
+                <span aria-hidden="true">&laquo;</span>
+              </a>
+            </li>
+            <li class="active">
+              <a href="#">1</a>
+            </li>
+            <li>
+              <a href="#" aria-label="Next">
+                <span aria-hidden="true">&raquo;</span>
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+      <!-- 左侧内容 end -->
+      <!-- 右侧内容 start-->
+      <div class="col-md-3 con-right">
+        <div class="panel panel-success">
+          <div class="panel-heading">分类排行榜</div>
+          <div class="list-group" v-for="cate in category" :key="cate.type">
+            <a href="#" class="list-group-item list-group-item-danger">{{ cate.name }}</a>
           </div>
         </div>
       </div>
-
-      <article class="media excerpt" v-for="movie in film" v-bind:key="movie.id">
-        <div class="media-left">
-          <a :href="movie.url" class="focus">
-            <img class="media-object thumb" :src="movie.img" :alt="movie.name" />
-          </a>
-        </div>
-        <!-- media-left end. -->
-        <div class="media-right">
-          <header>
-            <a class="cat" href="javascript:void(0)">
-              最新发布
-              <i></i>
-            </a>
-            <h2>
-              <a target="_blank" :href="movie.url" :title="movie.name ">{{ movie.name }}</a>
-            </h2>
-          </header>
-
-          <p class="meta">
-            <time>
-              <i class="fa fa-clock-o"></i>2019-09-25
-            </time>
-            <a class="pc" :href="movie.url">
-              <i class="fa fa-eye" aria-hidden="true"></i>查看(26)
-            </a>
-          </p>
-
-          <p class="note">{{ movie.summary }}</p>
-        </div>
-        <!-- media-right end. -->
-      </article>
+      <!-- 右侧内容 start-->
     </div>
   </div>
 </template>
 
 <script>
+import { log } from "util";
 // @ is an alias to /src
 
 export default {
@@ -58,100 +78,217 @@ export default {
         //   img: "",
         //   name: "",
         //   id: "",
-        //   url: ""
+        //   url: "",
+        //   rate: "",
+        //   directors: [], //导演
+        //   casts: [], //主演
+        //
         // }
       ],
       api: {
-        hot:
-          "/j/search_subjects?type=movie&tag=%E7%83%AD%E9%97%A8&page_limit=5&page_start=0"
-        // movie: "https://movie.douban.com/subject/"
-      }
+        //https://movie.douban.com
+        newFilm:
+          "/j/new_search_subjects?sort=U&range=0,10&tags=%E7%94%B5%E5%BD%B1&start=0&year_range=2019,2019",
+        cateFilm:
+          "/j/chart/top_list?type=11&interval_id=100%3A90&action=&start=0&limit=20"
+      },
+      category: [
+        {
+          name: "剧情",
+          type: 11
+        },
+        {
+          name: "喜剧",
+          type: 24
+        },
+        {
+          name: "动作",
+          type: 5
+        },
+        {
+          name: "爱情",
+          type: 13
+        },
+        {
+          name: "科幻",
+          type: 17
+        },
+        {
+          name: "动画",
+          type: 25
+        },
+        {
+          name: "悬疑",
+          type: 10
+        },
+        {
+          name: "惊悚",
+          type: 19
+        },
+        {
+          name: "恐怖",
+          type: 20
+        },
+        {
+          name: "纪录片",
+          type: 1
+        },
+        {
+          name: "短片",
+          type: 23
+        },
+        {
+          name: "情色",
+          type: 6
+        },
+        {
+          name: "同性",
+          type: 26
+        },
+        {
+          name: "音乐",
+          type: 14
+        },
+        {
+          name: "歌舞",
+          type: 7
+        },
+        {
+          name: "家庭",
+          type: 28
+        },
+        {
+          name: "儿童",
+          type: 8
+        },
+        {
+          name: "传记",
+          type: 2
+        },
+        {
+          name: "历史",
+          type: 4
+        },
+        {
+          name: "战争",
+          type: 22
+        },
+        {
+          name: "犯罪",
+          type: 3
+        },
+        {
+          name: "西部",
+          type: 27
+        },
+        {
+          name: "奇幻",
+          type: 16
+        },
+        {
+          name: "冒险",
+          type: 15
+        },
+        {
+          name: "灾难",
+          type: 12
+        },
+        {
+          name: "武侠",
+          type: 29
+        },
+        {
+          name: "古装",
+          type: 30
+        },
+        {
+          name: "运动",
+          type: 18
+        },
+        {
+          name: "黑色电影",
+          type: 31
+        }
+      ]
     };
   },
   created() {
-    console.log(this.film);
+    console.log(this.category.length);
     this.axios
-      .get(this.api.hot)
+      .get(this.api.newFilm)
       .then(response => {
-        const movies = response.data.subjects;
+        const movies = response.data.data;
+        //console.log(movies);
         for (let i = 0; i < movies.length; i++) {
           this.film.push({
             img: movies[i].cover,
             name: movies[i].title,
             id: movies[i].id,
             url: movies[i].url,
-            summary: ""
+            rate: movies[i].rate,
+            directors: movies[i].directors,
+            casts: movies[i].casts //主演
           });
         }
-      })
-      .then(() => {
-        for (let i = 0; i < this.film.length; i++) {
-          //获取单个电影的信息
-          this.axios
-            .get(
-              "/v2/movie/subject/" +
-                this.film[i].id +
-                "?apikey=0b2bdeda43b5688921839c8ecb20399b"
-            )
-            .then(response => {
-              const data = response.data;
-              this.film[i].summary = data.summary;
-              // console.log(this.film[i].summary+"---"+this.film[i].id);
-            });
-        }
+        // console.log(this.film);
       })
       .catch(error => {
         console.log(error);
       });
-  },
-  methods: {
-    getSummary() {}
   }
 };
 </script>
 
-<style scoped>
-article {
-  display: flex;
-}
-.media-right {
-  display: flex;
-  flex-direction: column;
-}
-.media-right header {
-  text-align: left;
-}
-.media-right p {
-  text-align: left;
-}
+<style lang="scss" scoped>
+.home {
+  .con-left {
+    // background-color: #fafa;
+    padding: 10px;
 
-.excerpt .thumb {
-  width: 100px;
-  height: 140px;
+    .media,
+    .except {
+      padding: 20px;
+      display: flex;
+      border: 1px solid #eaeaea;
+      overflow: hidden;
+      background-color: #fff;
+      margin-bottom: -1px;
+
+      &:hover {
+        background-color: #f9f9f9;
+        position: relative;
+        z-index: 2;
+      }
+      .media-left {
+        img {
+          width: 140px;
+        }
+      }
+      .media-body {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        text-align: left;
+        padding: 15px;
+      }
+      a {
+        text-decoration: none;
+        &:hover {
+          color: #45b6f7;
+        }
+      }
+    }
+  }
+  .con-right {
+    padding: 10px 15px 0 10px;
+    // background-color: #a1a1a1;
+    .panel {
+      .panel-heading {
+      }
+      .list-group {
+        line-height: 10px;
+      }
+    }
+  }
 }
-.excerpt header {
-  margin-bottom: 10px;
-}
-.excerpt .cat {
-  color: #fff;
-  background-color: #45bcf9;
-  padding: 3px 6px;
-  font-size: 12px;
-  display: inline-block;
-  position: relative;
-  top: -2px;
-  margin-right: 6px;
-}
-.excerpt h2 {
-  display: inline;
-  font-size: 18px;
-  line-height: 1.4;
-  font-weight: bold;
-}
-.excerpt h2 a:hover {
-  color: #45b6f7;
-}
-.excerpt h2 a {
-  color: #555;
-}
-</style>>
+</style>

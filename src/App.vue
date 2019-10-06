@@ -71,14 +71,14 @@
               </ul>
             </li>
           </ul>
-          <form class="navbar-form navbar-left">
+          <!-- <form class="navbar-form navbar-left">
             <div class="input-group">
               <input type="text" class="form-control" placeholder="Search" />
               <span class="input-group-btn">
                 <router-link to="/detial" class="btn btn-default">{{ nav.search }}</router-link>
               </span>
             </div>
-          </form>
+          </form> -->
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#">Login</a>
@@ -103,7 +103,7 @@ export default {
         home: "首页",
         about: "关于",
         contact: "联系我",
-        search: "搜一下"
+        // search: "搜一下"
       }
     };
   },
@@ -120,6 +120,7 @@ export default {
   color: #2c3e50;
 }
 body {
-  padding-top: 51px;
+  padding-top: 50px;
+  
 }
 </style>
