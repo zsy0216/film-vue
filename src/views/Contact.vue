@@ -1,6 +1,10 @@
 <template>
   <div class="contact">
-    <h3>This is contact page.</h3>
+    <div class="jumbotron">
+      <p>联系我：</p>
+      <p>个人网站：https:zsy0216.github.io</p>
+      <p>邮箱：594983498@qq.com</p>
+    </div>
   </div>
 </template>
 
@@ -8,6 +12,8 @@
 // @ is an alias to /src
 
 export default {
-  name: 'contact',
-}
+  name: "contact"
+};
 </script>
+<style lang="scss" scoped>
+</style>

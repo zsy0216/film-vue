@@ -4,12 +4,10 @@
       <!-- 左侧内容 start-->
       <div class="col-md-9 con-left">
         <div class="panel panel-info" v-if="!this.cate">
-          <div class="panel-heading">
-            豆瓣新片榜
-          </div>
+          <div class="panel-heading">豆瓣新片榜</div>
         </div>
         <div class="panel panel-success" v-else>
-           <div class="panel-heading">
+          <div class="panel-heading">
             <span v-if="this.cate">豆瓣分类榜---{{ this.cate }}</span>
           </div>
         </div>
@@ -24,17 +22,29 @@
             <h3 class="media-heading">
               <a class="text-muted" :href="movie.url" target="_blank">{{ movie.name }}</a>
             </h3>
-            <p>
-              <span class="text-muted">导演：</span>
-              {{ movie.directors }}
+            <p class="film-info">
+              <span class="text-muted" v-if="movie.directors">导演：</span>
+              <span>{{ movie.directors }}</span>
             </p>
-            <p>
-              <span class="text-muted">主演：</span>
-              {{ movie.casts }}
+            <p class="film-info casts">
+              <span class="text-muted" v-if="movie.casts">主演：</span>
+              <span>{{ movie.casts }}</span>
             </p>
-            <p>
-              <span class="text-muted">评分：</span>
-              {{ movie.rate }}
+            <p class="film-info">
+              <span class="text-muted" v-if="movie.release_date">上映时间：</span>
+              <span>{{ movie.release_date }}</span>
+            </p>
+            <p class="film-info">
+              <span class="text-muted" v-if="movie.regions">国家：</span>
+              <span>{{ movie.regions }}</span>
+            </p>
+            <p class="film-info">
+              <span class="text-muted" v-if="movie.type">类型：</span>
+              <span>{{ movie.type }}</span>
+            </p>
+            <p class="film-info">
+              <span class="text-muted" v-if="movie.rate">评分：</span>
+              <span>{{ movie.rate }}</span>
             </p>
           </div>
         </article>
@@ -316,7 +326,13 @@ export default {
         flex-direction: column;
         justify-content: space-between;
         text-align: left;
-        padding: 15px;
+        padding: 5px;
+        .casts {
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+          overflow: hidden;
+        }
       }
       a {
         text-decoration: none;
@@ -330,8 +346,6 @@ export default {
     padding: 10px 15px 0 10px;
     // background-color: #a1a1a1;
     .panel {
-      .panel-heading {
-      }
       .list-group {
         line-height: 10px;
         button {

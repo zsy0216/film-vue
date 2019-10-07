@@ -58,9 +58,7 @@
                 </li>
 
                 <li role="separator" class="divider"></li>
-                <li>
-                  <a href="http://www.jiaoran.net/" target="_blank">皎然影音乐</a>
-                </li>
+
                 <li>
                   <a href="https://movie.douban.com/" target="_blank">DouBan</a>
                 </li>
@@ -71,14 +69,6 @@
               </ul>
             </li>
           </ul>
-          <!-- <form class="navbar-form navbar-left">
-            <div class="input-group">
-              <input type="text" class="form-control" placeholder="Search" />
-              <span class="input-group-btn">
-                <router-link to="/detial" class="btn btn-default">{{ nav.search }}</router-link>
-              </span>
-            </div>
-          </form>-->
           <ul class="nav navbar-nav navbar-right">
             <li>
               <a href="#">Login</a>
